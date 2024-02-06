@@ -14,3 +14,10 @@ All = All %>% filter(V1!="GCF_000009645.1_WhatsGNU_report.txt")
 All$InClade = if_else(All$status=="case", 1, 0)
 All$OutOfClade = if_else(All$status=="control", 1, 0)
 All$GenomeName = sapply(All$V1, function(x) str_remove_all(x, "_WhatsGNU_report.txt"))
+
+
+TraitsMat = All %>% select(GenomeName, InClade,OutOfClade)
+colnames(TraitsMat) = c("Name", "InClade", "OutOfClade")
+write.csv(TraitsMat, file="Documents/Planet/DiagnosticAlleles/SAmericanAlleleScoringInput.csv",quote=F, row.names=F)
+
+sum(All$OutOfClade)
